@@ -16,7 +16,7 @@ pico_sdk_init()
 # rest of your project
 
 add_executable(temp
-    temp.c ssd1306.c
+        car.c ssd1306.c
 )
 
 # Add pico_stdlib library which aggregates commonly used features
