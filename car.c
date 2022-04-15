@@ -8,25 +8,9 @@
 #include "hardware/adc.h"
 #include "ssd1306.h"
 
-#define BEEP_PIN 27
-#define TEMP_PIN 26
-#define TEMP_ADC 0
-#define INC_PIN 0
-#define DEC_PIN 1
-
-
-bool reserved_addr(uint8_t addr) {
-    return (addr & 0x78) == 0 || (addr & 0x78) == 0x78;
-}
-
-
-
 ssd1306_t disp;
 void init() {
     stdio_init_all();
-
-    gpio_init(BEEP_PIN);
-    gpio_set_dir(BEEP_PIN, GPIO_OUT);
 
     adc_init();
     adc_gpio_init(TEMP_PIN);
@@ -48,20 +32,6 @@ void init() {
     ssd1306_init(&disp, 128, 64, 0x3C, i2c1);
     ssd1306_clear(&disp);
 }
-
-void beep_set(bool enabled) {
-    gpio_put(BEEP_PIN, enabled);
-}
-
-bool inc_get(){
-    return !gpio_get(INC_PIN);
-}
-
-bool dec_get(){
-    return !gpio_get(DEC_PIN);
-}
-
-double set_temp = 60;
 
 #define SCREEN_HEIGHT 64
 #define SCREEN_WIDTH 128
